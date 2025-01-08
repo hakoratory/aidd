@@ -21,18 +21,16 @@ function App() {
         <Typography variant="h5" component="h1">Sample System</Typography>
       </Box>
 
-      <Typography variant="h6" component="h2" align="left" sx={{ alignSelf: 'flex-start' }}>Name</Typography>
       <TextField
-        label="田中 たろう"
+        label="Name"
         variant="outlined"
         fullWidth
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <Typography variant="h6" component="h2" align="left" sx={{ alignSelf: 'flex-start', marginTop: 2 }}>Mail Address</Typography>
       <TextField
-        label="sample@test.com"
+        label="Mail Address"
         variant="outlined"
         type="email"
         fullWidth
