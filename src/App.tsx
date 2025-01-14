@@ -1,45 +1,20 @@
+// App.tsx
+
 import React, { useState, useMemo } from 'react';
-import { TextField, Button, Box, Typography, LinearProgress } from '@mui/material';
+import { Button, Box, Typography } from '@mui/material';
 import "./App.css"
 import reactLogo from './assets/react.svg'
 import useApi from './hooks/useApi';
+import LimitedTextField from './components/LimitedTextField';
 
-function App() {
+const App: React.FC = () => {
   const [name, setName] = useState('');
   const [mail, setMail] = useState('');
 
   const { post } = useApi();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleMailChange = (e) => {
-    setMail(e.target.value);
-  };
-
   const handleClick = () => {
     post(name, mail);
-  };
-
-  const getProgressColor = (value, max) => {
-    return value > max ? 'error' : 'primary';
-  };
-
-  const renderProgress = (value, max) => {
-    const progress = (value / max) * 100;
-    return (
-      <Box sx={{ width: '100%', mt: 1 }}>
-        <LinearProgress
-          variant="determinate"
-          value={Math.min(progress, 100)}
-          color={getProgressColor(value, max)}
-        />
-        <Typography variant="caption" color={getProgressColor(value, max)}>
-          {value}/{max}
-        </Typography>
-      </Box>
-    );
   };
 
   const isFormValid = useMemo(() => {
@@ -53,24 +28,19 @@ function App() {
         <Typography variant="h5" component="h1">Sample System</Typography>
       </Box>
 
-      <TextField
+      <LimitedTextField
         label="Name"
-        variant="outlined"
-        fullWidth
         value={name}
-        onChange={handleNameChange}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+        maxLength={50}
       />
-      {renderProgress(name.length, 50)}
 
-      <TextField
+      <LimitedTextField
         label="Mail Address"
-        variant="outlined"
-        type="email"
-        fullWidth
         value={mail}
-        onChange={handleMailChange}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMail(e.target.value)}
+        maxLength={255}
       />
-      {renderProgress(mail.length, 255)}
 
       <Button
         variant="contained"
